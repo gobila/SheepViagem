@@ -16,4 +16,5 @@ export const Box = styled.div`
     ${propToStyle('alignItems')}
     ${propToStyle('margin')}
     ${propToStyle('width')}
+    ${propToStyle('border')}
 `;

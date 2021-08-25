@@ -1,6 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled,{css} from 'styled-components';
 import { Box } from '../Box';
+import {Button} from '../Button';
 import Text from '../Text';
 
 const Input = styled(Text)`
@@ -9,9 +10,40 @@ const Input = styled(Text)`
   outline: 0;
   border-radius: 10px;
   border: 1px solid #35B6FF;
-
 `;
+const Label = styled(Box)`
+    display:flex;
+    margin:0px;
+    padding:0px;
+    border-radius: 0;
+    flex-direction:column;
+    align-items: center;
+    Input{
+        opacity: 0;
+        position:absolute;
+        vertical-align: middle;
+        width:50px;
+        height:50px;
+        margin:auto;
+        cursor: pointer;
+        }
+    Input+img{
+        cursor: pointer;
+        /* border-color:red; */
+    }
+    Input:checked + div{ /* (RADIO CHECKED) IMAGE STYLES */
+        text-align:center;
+        width:100%;
+        background-color:rgba(53 182 255 / 50%);
+    }
+`;
+
 function FormContainer(){
+    const [pagStyle, setPagStyle]= useState()
+    function clicked(event){
+        const option = event.target.id
+        console.log(pagStyle)
+    }
     return(
         <form>
             <Box
@@ -56,15 +88,68 @@ function FormContainer(){
                         />
                 </Box>
                 {/* Pagamento */}
-                    <Text tag='h3' variant='SectionTitle'>Como será o pagamento</Text>
                 <Box
                 width='80%'>
-                    <Input
-                        tag='input'
-                        type="text"
-                        placeholder='Como será o pagamento'
-                        name='pagamento'
-                    />
+                    <Text tag='h3' variant='SectionTitle'>Como será o pagamento</Text>
+                    <Box
+                        display='flex'
+                        flexDirection='row'
+                        alignItems='center'
+                        margin='auto'
+                        width='100%'
+                    >
+                        <Label id='transferecia'>
+                            <Input
+                                tag='input'
+                                type="radio"
+                                id='transferecia'
+                                name='pagamento'
+                                onClick={clicked}
+                                />
+                                <Box 
+                                    display='flex' 
+                                    flexDirection='column'
+                                    alignItems='center'
+                                >
+                                    <img src='assets/transferencia.png' style={{width:'50px'}}/>
+                                    <Text tag='h4'>Transferêcia</Text>
+                                </Box>
+                        </Label>
+                        <Label id='cartao'>
+                            <Input
+                                tag='input'
+                                type="radio"
+                                id='cartao'
+                                name='pagamento'
+                                onClick={clicked}
+                            />
+                            <Box 
+                            display='flex' 
+                            flexDirection='column'
+                            alignItems='center'
+                            >
+                                <img src="assets/cartao.png" />
+                                <Text tag='h4'>Cartão</Text>
+                            </Box>
+                        </Label>
+                        <Label id='paypal'>
+                            <Input
+                                tag='input'
+                                type="radio"
+                                id='paypal'
+                                name='pagamento'
+                                onClick={clicked}
+                                />
+                            <Box 
+                                display='flex' 
+                                flexDirection='column'
+                                alignItems='center'
+                                >
+                                <img src="assets/paypal.png" />
+                                <Text tag='h4'>PayPal</Text>
+                            </Box>
+                        </Label>
+                    </Box>
                 </Box>
                     {/* dados pessoais */}
                 <Box
@@ -120,7 +205,7 @@ function FormContainer(){
                         name='telfone'
                     />
                 </Box>
-                <button>Enviar</button>
+                <Button>Enviar</Button>
             </Box>
         </form >
     )
